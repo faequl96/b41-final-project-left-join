@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Localhost: 8000</title>
+    <link rel="icon" type="image/x-icon" href="../public/favicon/favicon.ico">
+    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="../public/css/fonts.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body class="tt-i-md bg-bod scroll-y">
+
+    <!-- navbar start -->
+
+    <nav class="navbar navbar-expand-md bg-nav fixed-top py-2 shadow-sm">
+        <div class="container-lg px-2 px-lg-0">
+            <a class="navbar-brand" href="/">
+                <img src="../public/img/dumbways.png" alt="Bootstrap" height="30">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Navigasi</h5>
+                    <div class="row w-60 ms-auto me-3">
+                        {{if .SessionData.IsLogin}}
+                            <span class="nav-link active col-8 text-end text-success">Hello, <span class="fw_black text-secondary">{{.SessionData.UserName}}</span></span>
+                            <a class="nav-link active col-4 text-end text-danger linkHover" href="/process-logout">Logout</a>
+                        {{else}}
+                            <a class="nav-link active col-8 text-end linkHover" href="/register-form">Register</a>  
+                            <a class="nav-link active col-4 text-end linkHover" href="/login-form">Login</a>
+                        {{end}}
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav me-auto mb-5 mb-md-0">
+                        <li class="nav-item ps-0 ps-md-3">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
+                        {{if .SessionData.IsLogin}}
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/add-project-form">Add Project</a>
+                            </li>
+                        {{end}}
+                    </ul>
+
+                    <ul class="navbar-nav d-none d-md-flex ms-auto mb-5 mb-md-0 gap-3">
+                        {{if .SessionData.IsLogin}}
+                            <li class="nav-item d-flex align-items-center">
+                                <span class="nav-link active text-success">Hello, <span class="fw_black text-secondary">{{.SessionData.UserName}}</span></span>
+                            </li>
+                            <li class="nav-item d-flex align-items-center">
+                                <a class="nav-link active text-danger linkHover" href="/process-logout">Logout</a>
+                            </li>
+                        {{else}}
+                            <li class="nav-item d-flex align-items-center">
+                                <a class="nav-link active linkHover" href="/register-form">Register</a>
+                            </li>
+                            <li class="nav-item d-flex align-items-center">
+                                <a class="nav-link active linkHover" href="/login-form">Login</a>
+                            </li>
+                        {{end}}
+                    </ul>
+
+                    <ul class="navbar-nav ms-0 ms-md-3 ms-xl-4 mb-2 mb-md-0">
+                        <li class="nav-item d-flex align-items-center">
+                            <a class="nav-link btn px-3 py-1 btn-dark text-white" href="/contact">Contact Me</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- navbar end -->
+    
+    <!-- form start -->
+
+    <section class="form mt-main">
+        {{if .SessionData.IsLogin}}
+            <div class="container-lg">
+                <div class="row justify-content-center">
+                    <h1 class="text-center fw_black">EDIT MY PROJECT</h1>
+                </div>
+                <div class="row justify-content-center">
+                    <form class="row col-12 col-md-11 col-lg-10 col-xl-8 g-3 fs-3" action="/send-edit-project-data/{{.selectedProjectData.Id}}" method="POST" enctype="multipart/form-data">
+                        <div class="col-12">
+                            <label for="project-name" class="form-label mb-0">Project Name</label>
+                            <input type="text" class="projectName form-control mb-3 fs-4 p-form shadow" name="project-name" value="{{.selectedProjectData.ProjectName}}">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="start-date" class="form-label mb-0">Start Date</label>
+                            <input type="date" class="startDate form-control mb-3 fs-4 p-form shadow" name="start-date" value="{{.selectedProjectData.StartDateFormat}}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="end-date" class="form-label mb-0">End Date</label>
+                            <input type="date" class="endDate form-control mb-3 fs-4 p-form shadow" name="end-date" value="{{.selectedProjectData.EndDateFormat}}">
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="description" class="form-label mb-0">Description</label>
+                            <textarea type="textarea" class="description form-control mb-3 fs-4 p-form shadow" rows="5" name="description">{{.selectedProjectData.Description}}</textarea>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label class="form-label mb-3">Technologies</label>
+                            <div class="row">
+                                {{if eq (index .selectedProjectData.Technologies 0) "NodeJs"}}
+                                    <div class="col-5 pb-3">
+                                        <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="node" name="node" value="NodeJs" checked>
+                                        <label class="form-check-label pt-tech" for="node">Node Js</label>
+                                    </div>
+                                {{else}}
+                                    <div class="col-5 pb-3">
+                                        <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="node" name="node" value="NodeJs">
+                                        <label class="form-check-label pt-tech" for="node">Node Js</label>
+                                    </div>
+                                {{end}}
+                                
+                                {{if eq (index .selectedProjectData.Technologies 1) "ReactJs"}}
+                                    <div class="col-5 pb-3">
+                                        <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="react" name="react" value="ReactJs" checked>
+                                        <label class="form-check-label pt-tech" for="react">React Js</label>
+                                    </div>
+                                {{else}}
+                                    <div class="col-5 pb-3">
+                                        <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="react" name="react" value="ReactJs">
+                                        <label class="form-check-label pt-tech" for="react">React Js</label>
+                                    </div>
+                                {{end}}
+
+                                {{if eq (index .selectedProjectData.Technologies 2) "VueJs"}}
+                                    <div class="col-5 pb-3">
+                                        <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="vue" name="vue" value="VueJs" checked>
+                                        <label class="form-check-label pt-tech" for="vue">Vue Js</label>
+                                    </div>
+                                {{else}}
+                                    <div class="col-5 pb-3">
+                                        <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="vue" name="vue" value="VueJs">
+                                        <label class="form-check-label pt-tech" for="vue">Vue Js</label>
+                                    </div>
+                                {{end}}
+
+                                {{if eq (index .selectedProjectData.Technologies 3) "TypeScript"}}
+                                    <div class="col-5 pb-3">
+                                        <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="typescript" name="typescript" value="TypeScript" checked>
+                                        <label class="form-check-label pt-tech" for="typescript">TypeScript</label>
+                                    </div>
+                                {{else}}
+                                    <div class="col-5 pb-3">
+                                        <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="typescript" name="typescript" value="TypeScript">
+                                        <label class="form-check-label pt-tech" for="typescript">TypeScript</label>
+                                    </div>
+                                {{end}}
+                                
+                            </div>
+                        </div>
+
+                        <label class="form-label mb-0 mt-4">Upload Image</label>
+                        <div class="upload col-12 mb-3 position-relative mt-1" style="height: 64px;">
+                            
+                            <div class="boxField d-flex justify-content-between mb-3 pe-1 shadow rounded bg-white h-100">
+                                <div class="choose px-4 d-flex align-items-center rounded" style="cursor: pointer;">choose</div>
+                                <div class="" style="height: 100%;">
+                                    <img src="../public/img/link.png" height="100%" alt="Choose Image" class="linkLogo">
+                                </div>
+                                <input type="file" accept="image/png, image/jpeg" class="uploadImg form-control" style="height: 100%; width: 98%; position: absolute; z-index: 99; opacity: 0;" name="project-image" value="{{.selectedProjectData.Image}}">
+                            </div>
+                        </div>
+                        <div class="col-12 mt-6 mb-form d-flex justify-content-end">
+                            <button type="button" class="create px-5 py-2 fs-4 rounded-pill fw_bold" style="cursor: default;">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        {{else}}
+            <div class="container-lg d-none">
+                <div class="row justify-content-center">
+                    <h1 class="text-center fw_black">EDIT MY PROJECT</h1>
+                </div>
+                <div class="row justify-content-center">
+                    <form class="row col-12 col-md-11 col-lg-10 col-xl-8 g-3 fs-3" action="/send-edit-project-data/{{.selectedProjectData.Id}}" method="POST">
+                        <div class="col-12">
+                            <label for="project-name" class="form-label mb-0">Project Name</label>
+                            <input type="text" class="projectName form-control mb-3 fs-4 p-form shadow" name="project-name" value="{{.selectedProjectData.ProjectName}}">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="start-date" class="form-label mb-0">Start Date</label>
+                            <input type="date" class="startDate form-control mb-3 fs-4 p-form shadow" name="start-date" value="{{.selectedProjectData.StartDateFormat}}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="end-date" class="form-label mb-0">End Date</label>
+                            <input type="date" class="endDate form-control mb-3 fs-4 p-form shadow" name="end-date" value="{{.selectedProjectData.EndDateFormat}}">
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="description" class="form-label mb-0">Description</label>
+                            <textarea type="textarea" class="description form-control mb-3 fs-4 p-form shadow" rows="5" name="description">{{.selectedProjectData.Description}}</textarea>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label class="form-label mb-3">Technologies</label>
+                            <div class="row">
+                                {{if eq (index .selectedProjectData.Technologies 0) "NodeJs"}}
+                                    <div class="col-5 pb-3">
+                                        <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="node" name="node" value="NodeJs" checked>
+                                        <label class="form-check-label pt-tech" for="node">Node Js</label>
+                                    </div>
+                                {{else}}
+                                    <div class="col-5 pb-3">
+                                        <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="node" name="node" value="NodeJs">
+                                        <label class="form-check-label pt-tech" for="node">Node Js</label>
+                                    </div>
+                                {{end}}
+                                
+                                {{if eq (index .selectedProjectData.Technologies 1) "ReactJs"}}
+                                    <div class="col-5 pb-3">
+                                        <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="react" name="react" value="ReactJs" checked>
+                                        <label class="form-check-label pt-tech" for="react">React Js</label>
+                                    </div>
+                                {{else}}
+                                    <div class="col-5 pb-3">
+                                        <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="react" name="react" value="ReactJs">
+                                        <label class="form-check-label pt-tech" for="react">React Js</label>
+                                    </div>
+                                {{end}}
+
+                                {{if eq (index .selectedProjectData.Technologies 2) "VueJs"}}
+                                    <div class="col-5 pb-3">
+                                        <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="vue" name="vue" value="VueJs" checked>
+                                        <label class="form-check-label pt-tech" for="vue">Vue Js</label>
+                                    </div>
+                                {{else}}
+                                    <div class="col-5 pb-3">
+                                        <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="vue" name="vue" value="VueJs">
+                                        <label class="form-check-label pt-tech" for="vue">Vue Js</label>
+                                    </div>
+                                {{end}}
+
+                                {{if eq (index .selectedProjectData.Technologies 3) "TypeScript"}}
+                                    <div class="col-5 pb-3">
+                                        <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="typescript" name="typescript" value="TypeScript" checked>
+                                        <label class="form-check-label pt-tech" for="typescript">TypeScript</label>
+                                    </div>
+                                {{else}}
+                                    <div class="col-5 pb-3">
+                                        <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="typescript" name="typescript" value="TypeScript">
+                                        <label class="form-check-label pt-tech" for="typescript">TypeScript</label>
+                                    </div>
+                                {{end}}
+                                
+                            </div>
+                        </div>
+
+                        <label class="form-label mb-0 mt-4">Upload Image</label>
+                        <div class="upload col-12 mb-3 position-relative mt-1" style="height: 64px;">
+                            
+                            <div class="boxField d-flex justify-content-between mb-3 pe-1 shadow rounded bg-white h-100">
+                                <div class="choose px-4 d-flex align-items-center rounded" style="cursor: pointer;">choose</div>
+                                <div class="" style="height: 100%;">
+                                    <img src="../public/img/link.png" height="100%" alt="Choose Image" class="linkLogo">
+                                </div>
+                                <input type="file" accept="image/png, image/jpeg" class="uploadImg form-control" style="height: 100%; width: 98%; position: absolute; z-index: 99; opacity: 0;" name="project-image" value="{{.selectedProjectData.Image}}">
+                            </div>
+                        </div>
+                        <div class="col-12 mt-6 mb-form d-flex justify-content-end">
+                            <button type="button" class="create px-5 py-2 fs-4 rounded-pill fw_bold" style="cursor: default;">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        {{end}}
+
+    </section>
+
+    <!-- form end -->
+
+    <script src="../public/js/requiredForMyProjectForm.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</body>
+</html>

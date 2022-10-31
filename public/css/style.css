@@ -1,0 +1,161 @@
+.tt-i-black {
+    font-family: tt_i_black;
+}
+
+.tt-i-bold {
+    font-family: tt_i_bold;
+}
+
+.tt-i-md {
+    font-family: tt_i_medium;
+}
+
+.tt-i-reg {
+    font-family: tt_i_regular;
+}
+
+.fw_black {
+    font-family: tt_i_black !important;
+}
+
+.fw_bold {
+    font-family: tt_i_bold !important;
+}
+
+.fw_semibold {
+    font-family: tt_i_medium !important;
+}
+
+.fw_normal {
+    font-family: tt_i_regular !important;
+}
+
+.btn-dangered {
+    background-color: orangered !important;
+}
+
+.bg-bod {
+    background-color: #e3e7eb;
+}
+
+.bg-nav {
+    background-color: #f4f3f3;
+}
+
+.bg-main {
+    background-color: white;
+}
+
+.mt-6 {
+    margin-top: 60px !important;
+}
+
+.mt-main {
+    margin-top: 140px;
+}
+
+.mt-project {
+    margin-top: 80px;
+}
+
+.pt-project {
+    padding-top: 70px;
+}
+
+.pb-project {
+    padding-bottom: 50px;
+}
+
+.pt-ED {
+    padding-top: .35rem !important;
+}
+
+.p-form {
+    padding: 12px 20px !important;
+}
+
+.m-flash {
+    margin-top: 60px;
+}
+
+.mb-form {
+    margin-bottom: 100px;
+}
+
+.pt-tech {
+    padding-top: 2px;
+}
+
+.w-60 {
+    width: 60% !important;
+}
+
+.h-close {
+    height: 7px !important;
+}
+
+
+.sosmed {
+    width: 40px;
+}
+
+.techImg {
+    width: 38px;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.bs-bb {
+    box-sizing: border-box;
+}
+
+.h-content {
+    height: 90px;
+}
+
+.border-field {
+    border: 2px solid rgba(0, 0, 0, 0);
+}
+
+/* .linkHover:hover {
+    color: #696969 !important;
+} */
+
+.linkHover:hover {
+    color: rgb(155, 161, 166) !important;
+}
+
+.linkImgHover:hover img{
+    filter: grayscale();
+}
+
+.scroll-y {
+    overflow-y: scroll;
+}
+
+.z-index-999 {
+    z-index: 999 !important;
+}
+
+
+
+
+.upload .choose {
+    background-color: #e4e4e4;
+    color: #b2abab;
+}
+
+.upload:hover .choose {
+    background-color: black !important;
+    color: #eaeaea;
+}
+
+.create {
+    background-color: #e4e4e4;
+    color: #b2abab;
+    border: none;
+}
+
+

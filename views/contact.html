@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Localhost: 8000</title>
+    <link rel="icon" type="image/x-icon" href="../public/favicon/favicon.ico">
+    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="../public/css/fonts.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body class="tt-i-md bg-bod scroll-y">
+
+    <!-- navbar start -->
+
+    <nav class="navbar navbar-expand-md bg-nav fixed-top py-2 shadow-sm">
+        <div class="container-lg px-2 px-lg-0">
+            <a class="navbar-brand me-4" href="/">
+                <img src="../public/img/dumbways.png" alt="Bootstrap" height="30">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Navigasi</h5>
+                    <div class="row w-60 ms-auto me-3">
+                        {{if .SessionData.IsLogin}}
+                            <span class="nav-link active col-8 text-end text-success">Hello, <span class="fw_black text-secondary">{{.SessionData.UserName}}</span></span>
+                            <a class="nav-link active col-4 text-end text-danger linkHover" href="/process-logout">Logout</a>
+                        {{else}}
+                            <a class="nav-link active col-8 text-end linkHover" href="/register-form">Register</a>  
+                            <a class="nav-link active col-4 text-end linkHover" href="/login-form">Login</a>
+                        {{end}}
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav me-auto mb-5 mb-md-0 gap-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
+                        {{if .SessionData.IsLogin}}
+                            <li class="nav-item">
+                                <a class="nav-link active linkHover" href="/add-project-form">Add Project</a>
+                            </li>
+                        {{end}}
+                    </ul>
+
+                    <ul class="navbar-nav d-none d-md-flex ms-auto mb-5 mb-md-0 gap-3">
+                        {{if .SessionData.IsLogin}}
+                            <li class="nav-item d-flex align-items-center">
+                                <span class="nav-link active text-success">Hello, <span class="fw_black text-secondary">{{.SessionData.UserName}}</span></span>
+                            </li>
+                            <li class="nav-item d-flex align-items-center">
+                                <a class="nav-link active text-danger linkHover" href="/process-logout">Logout</a>
+                            </li>
+                        {{else}}
+                            <li class="nav-item d-flex align-items-center">
+                                <a class="nav-link active linkHover" href="/register-form">Register</a>
+                            </li>
+                            <li class="nav-item d-flex align-items-center">
+                                <a class="nav-link active linkHover" href="/login-form">Login</a>
+                            </li>
+                        {{end}}
+                    </ul>
+
+                    <ul class="navbar-nav ms-0 ms-md-3 ms-xl-4 mb-2 mb-md-0">
+                        <li class="nav-item d-flex align-items-center">
+                            <a class="nav-link disabled btn px-3 py-1 btn-dark text-white" href="/contact">Contact Me</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- navbar end -->
+    
+    <!-- form start -->
+
+    <section class="form mt-main">
+        {{if .SessionData.IsLogin}}
+            <div class="container-lg">
+                <div class="row justify-content-center">
+                    <h1 class="text-center fw_black">GET IN TOUCH</h1>
+                </div>
+                <div class="row justify-content-center">
+                    <form class="row col-12 col-md-9 col-lg-8 col-xl-7 col-xxl-6 g-3 fs-3">
+                        <div class="col-12">
+                            <label for="nama" class="form-label mb-0">Name</label>
+                            <input type="text" class="nama form-control mb-3 fs-4 p-3 shadow" id="nama">
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="email" class="form-label mb-0">Email</label>
+                            <input type="text" class="email form-control mb-3 fs-4 p-3 shadow" id="email">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="phone" class="form-label mb-0">Phone Number</label>
+                            <input type="text" class="phone form-control mb-3 fs-4 p-3 shadow" id="phone">
+                        </div>
+
+                        <div class="col-12">
+                            <label class="" for="subject">Subject</label>
+                            <select class="subject form-select form-control mb-3 fs-4 p-3 shadow" id="subject">
+                                <option selected></option>
+                                <option>HTML</option>
+                                <option>CSS</option>
+                                <option>JavaScript</option>
+                                <option>Go-Lang</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="message" class="form-label mb-0">Your Message</label>
+                            <textarea type="textarea" class="message form-control mb-3 fs-4 p-3 shadow" id="message" rows="5"></textarea>
+                        </div>
+
+                        <div class="submit col-12 mt-6 mb-form d-flex justify-content-end">
+                            <button type="button" class="create px-5 py-2 fs-4 rounded-pill fw_bold">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        {{else}}
+            <div class="container-lg d-none">
+                <div class="row justify-content-center">
+                    <h1 class="text-center fw_black">GET IN TOUCH</h1>
+                </div>
+                <div class="row justify-content-center">
+                    <form class="row col-12 col-md-9 col-lg-8 col-xl-7 col-xxl-6 g-3 fs-3">
+                        <div class="col-12">
+                            <label for="nama" class="form-label mb-0">Name</label>
+                            <input type="text" class="nama form-control mb-3 fs-4 p-3 shadow" id="nama">
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="email" class="form-label mb-0">Email</label>
+                            <input type="text" class="email form-control mb-3 fs-4 p-3 shadow" id="email">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="phone" class="form-label mb-0">Phone Number</label>
+                            <input type="text" class="phone form-control mb-3 fs-4 p-3 shadow" id="phone">
+                        </div>
+
+                        <div class="col-12">
+                            <label class="" for="subject">Subject</label>
+                            <select class="subject form-select form-control mb-3 fs-4 p-3 shadow" id="subject">
+                                <option selected></option>
+                                <option>HTML</option>
+                                <option>CSS</option>
+                                <option>JavaScript</option>
+                                <option>Go-Lang</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="message" class="form-label mb-0">Your Message</label>
+                            <textarea type="textarea" class="message form-control mb-3 fs-4 p-3 shadow" id="message" rows="5"></textarea>
+                        </div>
+
+                        <div class="submit col-12 mt-6 mb-form d-flex justify-content-end">
+                            <button type="button" class="create px-5 py-2 fs-4 rounded-pill fw_bold">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        {{end}}
+    </section>
+
+    <!-- form end -->
+
+    <script src="../public/js/contact.js"></script>
+    <script src="../public/js/requiredForContactForm.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</body>
+</html>

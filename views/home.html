@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Localhost: 8000</title>
+    <link rel="icon" type="image/x-icon" href="../public/favicon/favicon.ico">
+    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="../public/css/fonts.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="tt-i-md bg-bod scroll-y">
+
+    <!-- navbar start -->
+
+    <nav class="navbar navbar-expand-md bg-nav fixed-top py-2 shadow-sm">
+        <div class="container-lg px-2 px-lg-0">
+            <a class="navbar-brand me-4" href="/">
+                <img src="../public/img/dumbways.png" alt="Bootstrap" height="30">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header bg-nav">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Navigasi</h5>
+                    <div class="row w-60 ms-auto me-3">
+                        {{if .SessionData.IsLogin}}
+                            <span class="nav-link active col-8 text-end text-success">Hello, <span class="fw_black text-secondary">{{.SessionData.UserName}}</span></span>
+                            <a class="nav-link active col-4 text-end text-danger linkHover" href="/process-logout">Logout</a>
+                        {{else}}
+                            <a class="nav-link active col-8 text-end linkHover" href="/register-form">Register</a>  
+                            <a class="nav-link active col-4 text-end linkHover" href="/login-form">Login</a>
+                        {{end}}
+                    </div> 
+                    <button type="button" class="btn-close ms-2" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav me-auto mb-5 mb-md-0 gap-3">
+                        <li class="nav-item fw_black">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
+                        {{if .SessionData.IsLogin}}
+                            <li class="nav-item">
+                                <a class="nav-link active linkHover" href="/add-project-form">Add Project</a>
+                            </li>
+                        {{end}}
+                    </ul>
+
+                    <ul class="navbar-nav d-none d-md-flex ms-auto mb-5 mb-md-0 gap-3">
+                        {{if .SessionData.IsLogin}}
+                            <li class="nav-item d-flex align-items-center">
+                                <span class="nav-link active text-success">Hello, <span class="fw_black text-secondary">{{.SessionData.UserName}}</span></span>
+                            </li>
+                            <li class="nav-item d-flex align-items-center">
+                                <a class="nav-link active text-danger linkHover" href="/process-logout">Logout</a>
+                            </li>
+                        {{else}}
+                            <li class="nav-item d-flex align-items-center">
+                                <a class="nav-link active linkHover" href="/register-form">Register</a>
+                            </li>
+                            <li class="nav-item d-flex align-items-center">
+                                <a class="nav-link active linkHover" href="/login-form">Login</a>
+                            </li>
+                        {{end}}
+                    </ul>
+
+                    <ul class="navbar-nav ms-0 ms-md-4 mb-2 mb-md-0">
+                        <li class="nav-item d-flex align-items-center">
+                            <a class="nav-link btn px-3 py-1 btn-dark text-white" href="/contact">Contact Me</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- navbar end -->
+
+    {{if .SessionData.FlashMessage}}
+        <div class="container-lg px-0 m-flash position-fixed top-0 start-0 end-0 z-index-999">
+            <div class="alert alert-success alert-dismissible fade show fs-5 p-2 text-center shadow-sm" role="alert">
+                <strong>{{.SessionData.FlashMessage}}</strong>
+                <button type="button" class="btn-close h-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    {{end}}
+
+    <!-- main start -->
+    
+    <section class="main mt-main px-2 px-lg-0 d-flex justify-content-center">
+        <div class="container-lg row bg-white px-0 pt-4 pt-md-5 pt-lg-5 p-md-4 p-lg-5 pb-5 pb-md-5 justify-content-between rounded shadow">
+            <div class="col-md-8 col-lg-7">
+                <h2 class="mt-2 mt-md-0 mt-lg-4 mt-xl-5 mb-3 mb-xl-4 fs-3 fw_bold">Hi, Welcome to my hut</h2>
+                <p class="text-justify mb-4 mb-md-3 mb-lg-4 mb-xl-5">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, eaque culpa recusandae pariatur quas asperiores. Incidunt earum animi doloremque perferendis? Ipsum magnam, sunt ducimus delectus libero quidem illo quo totam dolor dolorum explicabo, sit voluptatum dicta soluta facere ratione accusamus perferendis veritatis fugiat nihil! Saepe aliquam eius expedita voluptates consequatur suscipit.
+                </p>
+                <div class="d-flex justify-content-start gap-3 mx-0 mb-5 mb-md-4 mb-lg-5 fs-5">
+                    <div class="d-flex justify-content-start px-0 me-3">
+                        <a class="nav-link btn px-4 py-1 btn-dark text-white rounded-pill" href="#">contact</a>
+                    </div>
+                    <div class="d-flex justify-content-start px-0" style="align-items: center;">
+                        <a class="nav-link me-2 pt-1" href="#">Download CV</a>
+                        <a href="#"><img class="" src="../public/img/download.png" width="30"></a>
+                    </div>
+                </div>
+
+                <ul class="nav gap-4 mb-4 mb-md-0 justify-content-center justify-content-md-start">
+                    <li class="nav-item">
+                        <a class="" href="http://www.linkedin.com">
+                            <img class="sosmed" src="../public/img/linkedin.png" alt="">
+                        </a>
+                    </li>
+                    <li  class="nav-item">
+                        <a class="" href="http://www.instagram.com">
+                            <img class="sosmed" src="../public/img/instagram.png" alt="">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="" href="http://www.facebook.com">
+                            <img class="sosmed" src="../public/img/facebook.png" alt="">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="" href="http://www.twitter.com">
+                            <img class="sosmed" src="../public/img/twitter.png" alt="">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <img class="card-img-top" src="../public/img/brendan-eich.jpg" alt="Brendan Eich">
+                    <div class="card-body">
+                        <h4 class="card-text text-center">Brendan Eich</h4>
+                        <p class="card-text text-center">Javascript Creator</p>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </section>
+
+    <!-- main end -->
+
+    <!-- project start -->
+
+    <section class="project mt-project pt-project pb-project d-flex justify-content-center flex-column bg-white">
+        <div class="container-lg judul row mb-5 m-auto">
+            {{if .SessionData.IsLogin}}
+                <h1 class="col text-center fw_black">MY PROJECT</h1>
+            {{else}}
+                <h1 class="col text-center fw_black">ALL PROJECT</h1>
+            {{end}}
+        </div>
+
+        <div class="container-lg row p-2 p-lg-0 py-0 py-md-0 py-lg-0 m-auto">
+            {{range $index, $selectedProjectData := .ProjectData}}
+                <div class="col-12 col-md-6 col-lg-4 p-2">
+                    <div class="card p-3 shadow">
+                        <div class="maxSizeImg">
+                            <a class="linkImgHover" href="/project-detail/{{$selectedProjectData.Id}}">
+                                <img src="../uploads/{{$selectedProjectData.Image}}" alt="" class="imgContent card-img">
+                            </a>
+                        </div>
+                        <div class="judulCard mt-4 mb-2">
+                            <div class="kotakJudul">
+                                <a class="linkHover nav-link d-inline fs-5 fw_bold" href="/project-detail/{{$selectedProjectData.Id}}">{{$selectedProjectData.ProjectName}}</a>
+                            </div>
+                            <div class="duration d-flex justify-content-start gap-2 mt-1 text-secondary">
+                                <div>
+                                    <p>Duration :</p>
+                                </div>
+                                <div>
+                                    <p>{{$selectedProjectData.Duration}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="isiCard h-content mb-4">
+                            <p>{{$selectedProjectData.Description}}</p>
+                        </div>
+                        <div class="techCheck d-flex justify-content-start mb-4 gap-3">
+                            {{range $index, $selectedItem := $selectedProjectData.Technologies}}
+                                {{if eq $selectedItem "NodeJs"}}
+                                    <img class="techImg" src="../public/img/node.png">
+                                {{else if eq $selectedItem "ReactJs"}}
+                                    <img class="techImg" src="../public/img/react.png">
+                                {{else if eq $selectedItem "VueJs"}}
+                                    <img class="techImg" src="../public/img/vue.png">
+                                {{else if eq $selectedItem "TypeScript"}}
+                                    <img class="techImg" src="../public/img/typescript.png">
+                                {{end}}
+                            {{end}}
+                        </div>
+                        <div class="editDelete row d-flex justify-content-between gap-2 mx-0">
+                            {{if $selectedProjectData.IsLogin}}
+                                <a class="col nav-link btn px-3 pb-1 btn-dark text-white pt-ED" href="/edit-project-form/{{$selectedProjectData.Id}}">Edit</a>
+                                <a class="col nav-link btn px-3 pb-1 btn-dark text-white pt-ED" href="/delete-project/{{$selectedProjectData.Id}}">Delete</a>
+                            {{else}}
+                            {{end}}
+                        </div>
+                    </div>
+                </div>
+            {{end}}
+        </div>
+    </section>
+
+    <!-- project end -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

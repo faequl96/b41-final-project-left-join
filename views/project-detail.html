@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Localhost: 8000</title>
+    <link rel="icon" type="image/x-icon" href="../favicon/favicon.ico">
+    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="../public/css/fonts.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="tt-i-md bg-bod scroll-y">
+
+    <!-- navbar start -->
+
+    <nav class="navbar navbar-expand-md bg-nav fixed-top py-2 shadow-sm">
+        <div class="container-lg px-2 px-lg-0">
+            <a class="navbar-brand me-4" href="/">
+                <img src="../public/img/dumbways.png" alt="Bootstrap" height="30">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header bg-nav">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Navigasi</h5>
+                    <div class="row w-60 ms-auto me-3">
+                        {{if .SessionData.IsLogin}}
+                            <span class="nav-link active col-8 text-end text-success">Hello, <span class="fw_black text-secondary">{{.SessionData.UserName}}</span></span>
+                            <a class="nav-link active col-4 text-end text-danger linkHover" href="/process-logout">Logout</a>
+                        {{else}}
+                            <a class="nav-link active col-8 text-end linkHover" href="/register-form">Register</a>  
+                            <a class="nav-link active col-4 text-end linkHover" href="/login-form">Login</a>
+                        {{end}}
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav me-auto mb-5 mb-md-0 gap-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
+                        {{if .SessionData.IsLogin}}
+                            <li class="nav-item">
+                                <a class="nav-link active linkHover" href="/add-project-form">Add Project</a>
+                            </li>
+                        {{end}}
+                    </ul>
+
+                    <ul class="navbar-nav d-none d-md-flex ms-auto mb-5 mb-md-0 gap-3">
+                        {{if .SessionData.IsLogin}}
+                            <li class="nav-item d-flex align-items-center">
+                                <span class="nav-link active text-success">Hello, <span class="fw_black text-secondary">{{.SessionData.UserName}}</span></span>
+                            </li>
+                            <li class="nav-item d-flex align-items-center">
+                                <a class="nav-link active text-danger linkHover" href="/process-logout">Logout</a>
+                            </li>
+                        {{else}}
+                            <li class="nav-item d-flex align-items-center">
+                                <a class="nav-link active linkHover" href="/register-form">Register</a>
+                            </li>
+                            <li class="nav-item d-flex align-items-center">
+                                <a class="nav-link active linkHover" href="/login-form">Login</a>
+                            </li>
+                        {{end}}
+                    </ul>
+
+                    <ul class="navbar-nav ms-0 ms-md-3 ms-xl-4 mb-2 mb-md-0">
+                        <li class="nav-item d-flex align-items-center">
+                            <a class="nav-link btn px-3 py-1 btn-dark text-white" href="/contact">Contact Me</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- navbar end -->
+
+    <!-- main start -->
+    
+    <section class="main mt-main px-2 px-lg-0 d-flex justify-content-center fs-5">
+        <div class="container-lg px-0">
+            <div class="judul row justify-content-center">
+                <h1 class="text-center fw_black mb-5 fs-1">{{.selectedProjectData.ProjectName}}</h1>
+            </div>
+            <div class="projectMetas row justify-content-between mb-5">
+                <div class="hero-img col-md-7 col-xl-8 pe-md-2 pe-lg-3 pe-xl-4 pe-xxl-5">
+                    <img class="w-100" src="../uploads/{{.selectedProjectData.Image}}">
+                </div>
+                <div class="projectInfo col-md-5 col-xl-4 mt-4 mt-md-0 mt-xl-2 ps-md-2 ps-lg-3 ps-xl-4">
+                    <div class="duration">
+                        <h3 class="fs mb-3 mb-lg-4">Duration</h3>
+                        <div class="startEndDate d-flex justify-content-start mb-3 mb-xl-4" style="height: 50px;">
+                            <img class="h-100 me-2" src="../public/img/calendar.png">
+                            <p class="d-flex align-items-center h-100">{{.selectedProjectData.StartDateFormat}} - {{.selectedProjectData.EndDateFormat}}</p>
+                        </div>
+                        <div class="durationInfo d-flex justify-content-start mb-3 mb-lg-4" style="height: 50px;">
+                            <img class="h-100 me-2" src="../public/img/stopwatch.png">
+                            <p class="d-flex align-items-center h-100">{{$.selectedProjectData.Duration}}</p>
+                        </div>
+                    </div>
+                    <div class="techno">
+                        <h3 class="mb-3">Technology</h3>
+                        <div class="techGrid row">
+                            {{range $index, $item := .selectedProjectData.Technologies}}
+                                {{if eq $item "NodeJs"}}
+                                    <div class="node col-5 d-flex justify-content-start mb-3" style="height: 50px;">
+                                        <img class="h-100 me-2" src="../public/img/node.png">
+                                        <p class="d-flex align-items-center h-100">Node Js</p>
+                                    </div>
+                                {{else if eq $item "VueJs"}}
+                                    <div class="vue col-6 d-flex justify-content-start mb-3" style="height: 50px;">
+                                        <img class="h-100 me-2" src="../public/img/vue.png">
+                                        <p class="d-flex align-items-center h-100">Vue Js</p>
+                                    </div>
+                                {{else if eq $item "ReactJs"}}
+                                    <div class="react col-5 d-flex justify-content-start mb-3" style="height: 50px;">
+                                        <img class="h-100 me-2" src="../public/img/react.png">
+                                        <p class="d-flex align-items-center h-100">React Js</p>
+                                    </div>
+                                {{else if eq $item "TypeScript"}}
+                                    <div class="typeScript col-6 d-flex justify-content-start mb-3" style="height: 50px;">
+                                        <img class="h-100 me-2" src="../public/img/typescript.png">
+                                        <p class="d-flex align-items-center h-100">TypeScript</p>
+                                    </div>
+                                {{end}}
+                            {{end}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="projectContents text-justify mb-5">
+                <p>{{.selectedProjectData.Description}}</p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus quae similique alias obcaecati quas aut atque voluptatem quibusdam consequatur repudiandae sequi distinctio aliquid magnam, nemo, sapiente quo non rem deserunt quis praesentium vero quasi eum voluptates qui? Unde, similique, alias obcaecati accusamus voluptatum atque necessitatibus asperiores voluptates, quo perferendis perspiciatis!
+                </p>
+                <p>
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum accusamus velit aliquid officia aspernatur omnis asperiores nam ab non nihil sed temporibus, eos odio, est provident libero quas. Placeat, consequatur. Voluptatem quo temporibus quisquam iste nostrum voluptas, itaque sunt perferendis tempore. Blanditiis, placeat accusamus. Illo iste harum autem tempora aut et maxime facilis, dolorem, voluptates, nesciunt maiores vitae sapiente eligendi eum labore quasi dolore! Fugiat, officiis perspiciatis voluptas nostrum fuga quidem aperiam quam quibusdam, ullam a reprehenderit tempore laborum impedit, maxime et. Consectetur amet corrupti ea ipsum, architecto inventore obcaecati blanditiis alias corporis quidem harum. Quas ullam magnam alias dolorum?
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati excepturi facilis quisquam fugit aliquid eaque nulla consequatur sequi. Suscipit ducimus deleniti cumque accusamus illo debitis voluptates, obcaecati veritatis, eum nesciunt temporibus, itaque ratione et deserunt quibusdam dicta at in numquam corrupti nostrum iure facilis! Molestias ipsum dolore est quaerat. Reprehenderit odit, harum molestiae nam distinctio hic repellendus natus culpa? Commodi.
+                </p>
+                <p>
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum accusamus velit aliquid officia aspernatur omnis asperiores nam ab non nihil sed temporibus, eos odio, est provident libero quas. Placeat, consequatur. Voluptatem quo temporibus quisquam iste nostrum voluptas, itaque sunt perferendis tempore. Blanditiis, placeat accusamus. Illo iste harum autem tempora aut et maxime facilis, dolorem, voluptates, nesciunt maiores vitae sapiente eligendi eum labore quasi dolore! Fugiat, officiis perspiciatis voluptas nostrum fuga quidem aperiam quam quibusdam, ullam a reprehenderit tempore laborum impedit, maxime et. Consectetur amet corrupti ea ipsum, architecto inventore obcaecati blanditiis alias corporis quidem harum. Quas ullam magnam alias dolorum?
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus quae similique alias obcaecati quas aut atque voluptatem quibusdam consequatur repudiandae sequi distinctio aliquid magnam, nemo, sapiente quo non rem deserunt quis praesentium vero quasi eum voluptates qui? Unde, similique, alias obcaecati accusamus voluptatum atque necessitatibus asperiores voluptates, quo perferendis perspiciatis!
+                </p>
+    
+            </div>       
+        </div> 
+    </section>
+
+    <!-- main end -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

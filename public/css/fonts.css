@@ -1,0 +1,44 @@
+@font-face {
+    font-family: tt_i_extralight;
+    src: url(../font/ttinterfaces-extralight.woff) format('woff');
+}
+
+
+
+
+@font-face {
+    font-family: tt_i_light;
+    src: url(../font/ttinterfaces-light.woff) format('woff');
+}
+
+
+
+
+@font-face {
+    font-family: tt_i_regular;
+    src: url(../font/ttinterfaces-regular.woff) format('woff');
+}
+
+
+
+
+@font-face {
+    font-family: tt_i_medium;
+    src: url(../font/ttinterfaces-medium.woff) format('woff');
+}
+
+
+
+
+@font-face {
+    font-family: tt_i_bold;
+    src: url(../font/ttinterfaces-bold.woff) format('woff');
+}
+
+
+
+
+@font-face {
+    font-family: tt_i_black;
+    src: url(../font/ttinterfaces-black.woff) format('woff');
+}
